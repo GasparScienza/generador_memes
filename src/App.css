@@ -2,6 +2,22 @@
   text-align: center;
 }
 
+.box-contenedor{
+  display: flex;
+  justify-content: center;
+}
+
+.box{
+  margin-top: 20px;
+  align-self: center;
+}
+
+
+.input{
+  margin-top: -5px;
+  margin-bottom: 20px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
