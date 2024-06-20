@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import html2canvas from 'html2canvas';
 
 function App() {
 
@@ -24,6 +25,15 @@ function App() {
   const onChangeImagen = function(img){
     setImagen(img.target.value)
   }
+  const exportar = (e) => {
+    html2canvas(document.querySelector("#meme")).then(canvas => {
+      let img = canvas.toDataURL("image/png");
+      let link = document.createElement('a');
+      link.download = "meme.png";
+      link.href = img;
+      link.click();
+    });
+  }
 
   return (
     <div className="App">
@@ -39,24 +49,21 @@ function App() {
               <MenuItem value="llamas.jpg">Casa en llamas</MenuItem>
               <MenuItem value="futurama.jpg">Futurama</MenuItem>
               <MenuItem value="Aliens.jpg">History</MenuItem>
-          </Select> <br/>
+          </Select> 
           </FormControl>
         </Box>
       </div>
+
       <div className='input'>
         <TextField onChange={onChangeLinea1} margin="normal" id="outlined-basic" label="Linea 1" variant="outlined" /><br/>
-        <TextField onChange={onChangeLinea2} id="outlined-basic" label="Linea 2" variant="outlined" />
+        <TextField onChange={onChangeLinea2} id="outlined-basic" label="Linea 2" variant="outlined" /><br/>
+        <br/><Button variant="outlined" onClick={exportar}>Exportar</Button>
       </div>
 
-      <Button variant="outlined">Exportar</Button>
-
-      <div>
-        <span>{linea1}</span><br/>
-        <span>{linea2}</span><br/>
-        {imagen != '' 
-          ? <img src={'/img/' + imagen} width={"500px"} />
-          : <></>
-        }
+      <div className='meme' id='meme'>
+        <span className='linea1'>{linea1}</span>
+        <span className='linea2'>{linea2}</span>
+        {imagen !== '' ? <img src={'/img/' + imagen} width={"100%"} alt={imagen}/> : <></>}
       </div>
     </div>
   );
